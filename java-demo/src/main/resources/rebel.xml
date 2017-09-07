@@ -7,14 +7,8 @@
 <application generated-by="intellij" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
 
 	<classpath>
-		<dir name="${projekte.dir}/docker-demo2/target/classes">
+		<dir name="${projekte.dir}/docker-demo/target/classes">
 		</dir>
 	</classpath>
-
-	<web>
-		<link>
-			<dir name="${projekte.dir}/docker-demo2/src/main/resources"/>
-		</link>
-	</web>
 
 </application>
