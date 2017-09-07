@@ -53,6 +53,13 @@ cd registry
 docker-compose up -d
 ```
 
+## Build a docker image for your app
+```
+cd java-demo
+docker build -t java-demo .
+docker push registry.sbs.guj.de:443/java-demo
+```
+
 # Build a docker swarm
 ## On the master
 ```
