@@ -1,0 +1,9 @@
+# vi swap file
+*.swp
+# emacs temp file
+.#*
+# Finder files
+.DS_Store
+._*
+
+/traefik/wildcard_sbs_guj_de.key
