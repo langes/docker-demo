@@ -3,6 +3,14 @@
 In order to work with the demo you need to install git and the docker-ce package. For the docker package please follow the instructions on their website.
 https://docs.docker.com/engine/installation/linux/docker-ce/centos/
 
+## Open ports
+
+## Start the docker service
+```
+systemctl start docker
+systemctl enable docker
+```
+
 ## Some basic docker commands
 ```
 docker ps -a
@@ -31,4 +39,28 @@ chmod +x /usr/local/bin/docker-compose
 ```
 cd traefik
 docker-compose up -d
+```
+
+## Start nginx
+```
+cd nginx
+docker-compose up -d
+```
+
+## Start registry
+```
+cd registry
+docker-compose up -d
+```
+
+# Build a docker swarm
+## On the master
+```
+docker swarm init
+docker swarm join-token worker
+```
+
+## On the node
+```
+docker swarm join --token <worker token> <host>:<port>
 ```
