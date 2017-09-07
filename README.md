@@ -14,8 +14,9 @@ docker rm
 
 ## Some basic docker-compose commands
 ```
-docker compose up -d
-docker compose down
+docker-compose up -d
+docker-compose down
+docker-compose scale <service name>=<number of instances>
 ```
 
 ## Install docker-compose
