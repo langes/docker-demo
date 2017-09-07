@@ -5,6 +5,7 @@ services:
     image: traefik
     #command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
     command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=unix://var/run/docker.sock --docker.exposedbydefault=false --logLevel=DEBUG
+    #command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=unix://var/run/docker.sock --docker.exposedbydefault=false --docker.swarmmode --logLevel=DEBUG
     networks:
       - webgateway
     ports:
