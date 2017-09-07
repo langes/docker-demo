@@ -3,6 +3,20 @@
 In order to work with the demo you need to install git and the docker-ce package. For the docker package please follow the instructions on their website.
 https://docs.docker.com/engine/installation/linux/docker-ce/centos/
 
+## Some basic docker commands
+```
+docker ps -a
+docker inspect <container id>
+docker exec -it <container id> sh
+docker kill
+docker rm
+```
+
+## Some basic docker-compose commands
+```
+docker compose up -d
+docker compose down
+```
 
 ## Install docker-compose
 https://docs.docker.com/compose/install/#install-compose
