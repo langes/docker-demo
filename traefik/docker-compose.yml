@@ -4,14 +4,14 @@ services:
   proxy:
     image: traefik
     #command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
-    command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=unix://var/run/docker.sock --docker.exposedbydefault=false --logLevel=DEBUG
+    command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=unix://var/run/docker.sock --docker.exposedbydefault=false --logLevel=DEBUG --web.certfile="/wildcard_sbs_guj_de_traefik.crt" --web.keyfile="/wildcard_sbs_guj_de.key"
     #command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=unix://var/run/docker.sock --docker.exposedbydefault=false --docker.swarmmode --logLevel=DEBUG
     networks:
       - webgateway
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
+      - "8443:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
