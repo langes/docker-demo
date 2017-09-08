@@ -1,4 +1,4 @@
-# docker-demo
+# docker-simple
 
 In order to work with the demo you need to install git and the docker-ce package. For the docker package please follow the instructions on their website.
 
@@ -60,8 +60,16 @@ docker build -t java-demo .
 docker push registry.sbs.guj.de:443/java-demo
 ```
 
-# Build a docker swarm
-## On the master
+# docker-swarm
+
+## Prerequisite
+The following ports must be available.
+
+* TCP port 2377 for cluster management communications
+* TCP and UDP port 7946 for communication among nodes
+* UDP port 4789 for overlay network traffic
+
+## Setup swarm
 ```
 docker swarm init
 docker swarm join-token worker
@@ -70,4 +78,9 @@ docker swarm join-token worker
 ## On the node
 ```
 docker swarm join --token <worker token> <host>:<port>
+```
+
+
+```
+docker network create --attachable --driver overlay --subnet=10.0.9.0/24 my-net
 ```

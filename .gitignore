@@ -7,3 +7,6 @@
 ._*
 
 *.key
+
+docker-simple/registry/volume
+docker-swarm/registry/volume

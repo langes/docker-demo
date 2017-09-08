@@ -15,10 +15,9 @@ services:
       - ./traefik.toml:/traefik.toml
       - ./wildcard_sbs_guj_de_traefik.crt:/wildcard_sbs_guj_de_traefik.crt
       - ./wildcard_sbs_guj_de.key:/wildcard_sbs_guj_de.key
-    deploy:
-      labels:
-        - "traefik.enable=false"
-        - "traefik.frontend.rule=Host:{service}.{domain}"
+    labels:
+      - "traefik.enable=false"
+      - "traefik.frontend.rule=Host:{service}.{domain}"
 
 networks:
   webgateway:
