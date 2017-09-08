@@ -3,6 +3,9 @@ This vagrant file deploys three virtual machines with docker and docker-compose 
 
 **Currently this vagrant setup requires vmware_fusion and a valid license for the vagrant vmware plugin.**
 
+
+**This setup is not production ready, please consider that if you use this setup.**
+
 ## Run the boxes
 ```
 vagrant up
