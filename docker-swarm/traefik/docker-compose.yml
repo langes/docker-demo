@@ -3,7 +3,7 @@ version: '3'
 services:
   proxy:
     image: traefik
-    command: --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --docker --docker.domain=sbs.guj.de --docker.endpoint=tcp://192.168.145.144:2375 --docker.exposedbydefault=false --docker.swarmmode --logLevel=DEBUG --web.certfile="/wildcard_sbs_guj_de_traefik.crt" --web.keyfile="/wildcard_sbs_guj_de.key"
+    command: --docker --docker.endpoint=tcp://192.168.145.144:2375 --docker.domain=sbs.guj.de --docker.exposedbydefault=false --docker.swarmmode --logLevel=DEBUG --web --web.metrics.prometheus --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" --web.certfile="/wildcard_sbs_guj_de_traefik.crt" --web.keyfile="/wildcard_sbs_guj_de.key"
     networks:
       - web
     ports:

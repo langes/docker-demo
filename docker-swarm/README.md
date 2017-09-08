@@ -17,6 +17,7 @@ docker network create --attachable --driver overlay --subnet=10.0.9.0/24 my-net
 ```
 
 ## Start traefik
+**You need to change the ip address for the parameter --docker.endpoint=tcp://192.168.145.144:2375 in the docker-compose.yml.**
 ```
 cd docker-swarm/traefik
 docker stack deploy -c docker-compose.yml my_traefik
