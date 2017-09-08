@@ -1,0 +1,127 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+    - name: Install vim
+      yum:
+        name: vim
+        state: present
+
+    - name: Set vimrc tab stop
+      lineinfile:
+        line: ":set softtabstop=2 tabstop=2 shiftwidth=2 expandtab"
+        dest: /etc/vimrc
+
+    - name: Set syntax on
+      lineinfile:
+        line: "syntax on"
+        dest: /etc/vimrc
+
+    - name: Install bash completion
+      yum:
+        name: bash-completion
+        state: present
+
+    - name: Install bash completion extras
+      yum:
+        name: bash-completion-extras
+        state: present
+
+    - name: Disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+
+    - name: Install iptables-service
+      yum:
+        name: iptables-services
+        state: present
+
+    - name: Start iptables
+      service:
+        name: iptables
+        state: started
+        enabled: yes
+
+    - name: TCP port for container network discovery
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 7946
+
+    - name: UDP port for container network discovery
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: udp
+        destination_port: 7946
+
+    - name: UDP port for the container overlay network 
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: udp
+        destination_port: 4789
+
+    - name: HTTP port
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 80
+
+    - name: HTTPS port
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 443
+
+    - name: TCP port for traefik rest api
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 8443
+
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: present
+
+    - name: Add docker repo
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: Enable docker repo
+      shell: yum-config-manager --enable docker-ce-edge
+
+    - name: Install docker community edition
+      yum:
+        name: docker-ce
+        state: present
+
+    - name: Enable docker tcp socket
+      lineinfile:
+        path: /usr/lib/systemd/system/docker.service
+        regexp: '^ExecStart=/usr/bin/dockerd$'
+        line: 'ExecStart=/usr/bin/dockerd -H 0.0.0.0 -H unix:///var/run/docker.sock'
+
+    - name: Enable docker daemon
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Download docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.16.1/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 0770

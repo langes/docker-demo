@@ -8,5 +8,6 @@
 
 *.key
 
+docker-vagrant/.vagrant
 docker-simple/registry/volume
 docker-swarm/registry/volume
