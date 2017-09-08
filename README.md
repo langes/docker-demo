@@ -37,27 +37,26 @@ chmod +x /usr/local/bin/docker-compose
 
 ## Start traefik
 ```
-cd traefik
+cd docker-simple/traefik
 docker-compose up -d
 ```
 
 ## Start nginx
 ```
-cd nginx
+cd docker-simple/nginx
 docker-compose up -d
 ```
 
 ## Start registry
 ```
-cd registry
+cd docker-simple/registry
 docker-compose up -d
 ```
 
 ## Build a docker image for your app
 ```
-cd java-demo
+cd docker-simple/java-demo
 docker build -t java-demo .
-docker push registry.sbs.guj.de:443/java-demo
 ```
 
 # docker-swarm
