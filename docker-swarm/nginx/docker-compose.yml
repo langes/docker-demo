@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:      
+    image: nginx:alpine
+    volumes:
+      - ./demo.site:/etc/nginx/conf.d/demo.site
+      - ./index.html:/etc/nginx/html/index.html
+    environment:
+      - NGINX_HOST=demo.sbs.guj.de
+      - NGINX_PORT=80
+    command: /bin/sh -c "envsubst < /etc/nginx/conf.d/demo.site > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.backend.loadbalancer.sticky=true"
+      - "traefik.backend=nginx-demo"
+      - "traefik.frontend.rule=Host:demo.sbs.guj.de"
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway

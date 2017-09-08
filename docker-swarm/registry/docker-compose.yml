@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  registry:
+    image: registry:2
+    volumes:
+      - ./config.yml:/etc/docker/registry/config.yml
+      - /root/docker-demo/registry/volume:/var/lib/registry
+    restart: always
+    networks:
+      - web
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=5000"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.backend=registry"
+        - "traefik.frontend.rule=Host:registry.sbs.guj.de"
+      placement:
+        constraints:
+          - node.role == manager
+
+#networks:
+#  web:
+#    external:
+#      name: traefik_webgateway
+
+networks:
+  web:
+    external:
+      name: my-net

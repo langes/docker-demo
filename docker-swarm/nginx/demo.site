@@ -1,0 +1,10 @@
+server {
+  listen 80;
+  server_name *.localdomain;
+
+  location / {
+  	root html;
+  	index index.html index.htm;
+  }
+}
+
