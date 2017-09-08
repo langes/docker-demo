@@ -5,7 +5,7 @@ services:
     image: registry:2
     volumes:
       - ./config.yml:/etc/docker/registry/config.yml
-      - /root/docker-demo/registry/volume:/var/lib/registry
+      - ./volume:/var/lib/registry
     restart: always
     networks:
       - web
@@ -19,11 +19,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-
-#networks:
-#  web:
-#    external:
-#      name: traefik_webgateway
 
 networks:
   web:

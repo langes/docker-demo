@@ -3,18 +3,22 @@ version: '3'
 services:
   web:
     build: ./
-    image: java-demo:latest
+    image: registry.sbs.guj.de:443/java-demo:latest
     networks:
       - web
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=8080"
-      - "traefik.backend.loadbalancer.sticky=true"
-      - "traefik.backend=java-demo"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:java-demo.sbs.guj.de"
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.backend=java-demo"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:java-demo.sbs.guj.de"
+      placement:
+        constraints:
+          - node.role == worker
 
 networks:
   web:
     external:
-      name: traefik_webgateway
+      name: my-net
