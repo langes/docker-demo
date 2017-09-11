@@ -140,3 +140,13 @@
         name: java-1.8.0-openjdk-devel
         state: present
 
+    - name: Compile java demo
+      shell: ./mvnw -DskipTests clean package
+      args:
+        chdir: /vagrant/java-demo-src
+
+    - name: Copy docker-demo-1.0.0.jar in docker-simple directory
+      shell: cp /vagrant/java-demo-src/target/docker-demo-1.0.0.jar /vagrant/docker-simple/java-demo/docker-demo-1.0.0.jar
+
+    - name: Copy docker-demo-1.0.0.jar in docker-swarm directory
+      shell: cp /vagrant/java-demo-src/target/docker-demo-1.0.0.jar /vagrant/docker-swarm/java-demo/docker-demo-1.0.0.jar

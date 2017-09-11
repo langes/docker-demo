@@ -14,3 +14,9 @@
 # Ignore files from the docker registry
 docker-simple/registry/volume
 docker-swarm/registry/volume
+
+# Ignore jar files
+*.jar
+
+# Ignore ansible retry files
+playbook.retry
