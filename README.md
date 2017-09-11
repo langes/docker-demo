@@ -2,7 +2,6 @@
 This demo comes with a vagrantfile to deploy a small lab. The basic configuration is done with ansible.
 
 **Currently this vagrant setup requires vmware_fusion and a valid license for the vagrant vmware plugin.**
-**This setup is not production ready, please consider that if you use it.**
 
 ## Basic vagrant commands
 ### Run the boxes
