@@ -8,6 +8,9 @@
 
 *.key
 
-docker-vagrant/.vagrant
+# Ignore vagrant image files
+.vagrant
+
+# Ignore files from the docker registry
 docker-simple/registry/volume
 docker-swarm/registry/volume
