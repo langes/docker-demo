@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   nodes.each do |node|
     vagrant_root = File.dirname(__FILE__)
 
-    vdiskmanager = '/Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager'
+#    vdiskmanager = '/Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager'
 
     config.vm.define node[:hostname] do |node_config|
       node_config.vm.box = node[:box]
@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
     
       config.vm.provision "ansible_local" do |ansible|
         ansible.playbook = "playbook.yml"
-        ansible.verbose = true
+#        ansible.verbose = true
       end
 
     end
