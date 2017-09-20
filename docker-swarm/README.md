@@ -19,18 +19,20 @@ docker network create --attachable --driver overlay --subnet=10.0.9.0/24 my-net
 ## Start traefik
 **You need to change the ip address for the parameter --docker.endpoint=tcp://192.168.145.144:2375 in the docker-compose.yml.**
 ```
-cd docker-swarm/traefik
+cd /vagrant/docker-swarm/traefik
 docker stack deploy -c docker-compose.yml my_traefik
 ```
 
 ## Start the registry
 ```
-cd docker-swarm/registry
+cd /vagrant/docker-swarm/registry
 docker stack deploy -c docker-compose.yml my_registry
 ```
 
 ## Push your app to the registry
 ```
+cd /vagrant/docker-swarm/java-demo
+docker build -t java-demo .
 docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 java-demo           latest              71c5a18f1b7d        19 hours ago        129MB
@@ -41,6 +43,8 @@ openjdk             8-alpine            478bf389b75b        2 months ago        
 
 docker tag 71c5a18f1b7d registry.sbs.guj.de:443/java-demo
 docker push registry.sbs.guj.de:443/java-demo
+docker stack deploy -c docker-compose.yml demo_app
+docker service scale demo_app_web=2
 ```
 
 ### Test your registry

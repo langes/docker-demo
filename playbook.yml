@@ -126,6 +126,9 @@
         dest: /usr/local/bin/docker-compose
         mode: 0770
 
+    - name: Workaround due to ansible iptables module bug
+      shell: iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
+
 - hosts: box1
   become: true
   become_user: root
@@ -150,3 +153,20 @@
 
     - name: Copy docker-demo-1.0.0.jar in docker-swarm directory
       shell: cp /vagrant/java-demo-src/target/docker-demo-1.0.0.jar /vagrant/docker-swarm/java-demo/docker-demo-1.0.0.jar
+
+    - name: TCP docker daemon
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 2377
+
+    - name: TCP docker socket
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: tcp
+        destination_port: 2375
+
+    - name: Workaround: Set lazy file permissions, fix later
+      shell: chmod 777 /vagrant/docker-swarm/registry/volume
