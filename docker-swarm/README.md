@@ -11,6 +11,11 @@ docker swarm join-token worker
 docker swarm join --token <worker token> <host>:<port>
 ```
 
+## List Docker nodes
+```
+docker node ls
+```
+
 ## Create a new overlay network
 ```
 docker network create --attachable --driver overlay --subnet=10.0.9.0/24 my-net

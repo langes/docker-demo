@@ -52,6 +52,7 @@
 
     - name: TCP port for container network discovery
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
@@ -59,6 +60,7 @@
 
     - name: UDP port for container network discovery
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: udp
@@ -66,6 +68,7 @@
 
     - name: UDP port for the container overlay network 
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: udp
@@ -73,6 +76,7 @@
 
     - name: HTTP port
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
@@ -80,6 +84,7 @@
 
     - name: HTTPS port
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
@@ -87,6 +92,7 @@
 
     - name: TCP port for traefik rest api
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
@@ -126,9 +132,6 @@
         dest: /usr/local/bin/docker-compose
         mode: 0770
 
-    - name: Workaround due to ansible iptables module bug
-      shell: iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
-
 - hosts: box1
   become: true
   become_user: root
@@ -156,6 +159,7 @@
 
     - name: TCP docker daemon
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
@@ -163,10 +167,11 @@
 
     - name: TCP docker socket
       iptables:
+        action: insert
         chain: INPUT
         jump: ACCEPT
         protocol: tcp
         destination_port: 2375
 
-    - name: Workaround: Set lazy file permissions, fix later
+    - name: Workaround - Set lazy file permissions, fix later
       shell: chmod 777 /vagrant/docker-swarm/registry/volume
